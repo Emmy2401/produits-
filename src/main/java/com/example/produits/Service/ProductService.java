@@ -48,6 +48,11 @@ public class ProductService {
                 .map(this::convertToDto)
                 .orElseThrow(()-> new RuntimeException("Product not found"));
     }
+    public ProductDTO getProductByCode(String code) {
+        return productRepository.findByCode(code)
+                .map(this::convertToDto)
+                .orElseThrow(()-> new RuntimeException("Product not found"));
+    }
 
     public void deleteProductById(int id) {
         Product product = productRepository.findById(id)
@@ -59,7 +64,7 @@ public class ProductService {
         // Vérifier si un produit avec le même code existe déjà
         Optional<Product> existingProduct = productRepository.findByCode(productDTO.getCode());
         if (existingProduct.isPresent()) {
-            throw new IllegalArgumentException("Un produit avec le code '" + productDTO.getCode() + "' existe déjà.");
+            throw new IllegalArgumentException("Product with code'" + productDTO.getCode() + "' already exist");
         }
         // Convertir le DTO en entité
         Product product = convertToProduct(productDTO);
@@ -69,22 +74,32 @@ public class ProductService {
         return convertToDto(productSave);
         }
 
-        public ProductDTO updateProduct(ProductDTO productDTO) {
+        public ProductDTO updateProduct(int id ,ProductDTO productDTO) {
+            // Étape 1 : Récupération du produit existant
+            Product existingProduct = productRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Product not found"));
+
+            // Étape 2 : Vérification de l'unicité du code (autre produit avec le même code)
+            Optional<Product> productWithSameCode = productRepository.findByCode(productDTO.getCode());
+            if (productWithSameCode.isPresent() && !productWithSameCode.get().getId().equals(existingProduct.getId())) {
+                throw new IllegalArgumentException(
+                        "Product with code '" + productDTO.getCode() + "' already exists");
+            }
+
+            // Étape 3 : Mise à jour des champs du produit existant
+            existingProduct.setName(productDTO.getName());
+            existingProduct.setDescription(productDTO.getDescription());
+            existingProduct.setCode(productDTO.getCode());
+            existingProduct.setPrice(productDTO.getPrice());
+            existingProduct.setAvailable(productDTO.getAvailable());
+
+            // Étape 4 : Sauvegarde du produit mis à jour
+            Product updatedProduct = productRepository.save(existingProduct);
+
+            // Étape 5 : Conversion de l'entité mise à jour en DTO et retour
+            return convertToDto(updatedProduct);
 
         }
-        /*
-        *  public ChatDTO updateChat(Long id, ChatDTO chatDTO) {
-        Chat chat = chatRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Le chat n'existe pas"));
-
-        chat.setNom(chatDTO.getNom());
-        chat.setDateNaissance(chatDTO.getDateNaissance());
-        chat.setCouleur(chatDTO.getCouleur());
-        chat.setGenre(chatDTO.getGenre());
-
-        Chat chatUpdate = chatRepository.save(chat);
-        return convertToDTO(chatUpdate);
-    }*/
 
     }
 
