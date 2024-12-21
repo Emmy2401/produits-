@@ -26,6 +26,7 @@ public class ProductService {
         productDTO.setDescription(product.getDescription());
         productDTO.setPrice(product.getPrice());
         productDTO.setAvailable(product.getAvailable());
+        productDTO.setCode(product.getCode());
         return productDTO;
     }
 
@@ -36,6 +37,7 @@ public class ProductService {
         product.setDescription(productDTO.getDescription());
         product.setPrice(productDTO.getPrice());
         product.setAvailable(productDTO.getAvailable());
+        product.setCode(productDTO.getCode());
         return product;
     }
 

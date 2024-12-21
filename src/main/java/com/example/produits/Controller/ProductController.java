@@ -4,7 +4,6 @@ import com.example.produits.DTO.ProductDTO;
 import com.example.produits.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -19,14 +18,14 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @GetMapping("/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ProductDTO getProductById(@PathVariable int id) {
         return productService.getProductById(id);
     }
-    @GetMapping("/{code}")
-    public ProductDTO getProductById(@PathVariable String code) {
-        return productService.getProductByCode(code);
-    }
+//    @RequestMapping(method = RequestMethod.GET)
+//    public ProductDTO getProductById(@RequestParam(value="code") String code) {
+//        return productService.getProductByCode(code);
+//    }
 
     @PostMapping
     public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
@@ -34,7 +33,7 @@ public class ProductController {
     }
 
     @PutMapping ("/{id}")
-    public ProductDTO updateProduct(@PathVariable int id,@PathVariable ProductDTO productDTO)
+    public ProductDTO updateProduct(@PathVariable int id,@RequestBody ProductDTO productDTO)
     {
         return productService.updateProduct(id,productDTO);
     }
