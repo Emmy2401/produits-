@@ -22,8 +22,8 @@ public class ProductController {
     public ProductDTO getProductById(@PathVariable int id) {
         return productService.getProductById(id);
     }
-//    @RequestMapping(method = RequestMethod.GET)
-//    public ProductDTO getProductById(@RequestParam(value="code") String code) {
+//    @RequestMapping(value = "/code/{code}" ,method = RequestMethod.GET)
+//    public ProductDTO getProductByCode(@RequestParam(value="code") String code) {
 //        return productService.getProductByCode(code);
 //    }
 

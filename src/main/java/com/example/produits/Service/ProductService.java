@@ -66,7 +66,7 @@ public class ProductService {
         // Vérifier si un produit avec le même code existe déjà
         Optional<Product> existingProduct = productRepository.findByCode(productDTO.getCode());
         if (existingProduct.isPresent()) {
-            throw new IllegalArgumentException("Product with code'" + productDTO.getCode() + "' already exist");
+            throw new IllegalArgumentException("code already exist");
         }
         // Convertir le DTO en entité
         Product product = convertToProduct(productDTO);
@@ -84,8 +84,7 @@ public class ProductService {
             // Étape 2 : Vérification de l'unicité du code (autre produit avec le même code)
             Optional<Product> productWithSameCode = productRepository.findByCode(productDTO.getCode());
             if (productWithSameCode.isPresent() && !productWithSameCode.get().getId().equals(existingProduct.getId())) {
-                throw new IllegalArgumentException(
-                        "Product with code '" + productDTO.getCode() + "' already exists");
+                throw new IllegalArgumentException("code already exist");
             }
 
             // Étape 3 : Mise à jour des champs du produit existant
