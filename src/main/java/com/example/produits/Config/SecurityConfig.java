@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final CustomUserDetailsService userDetailsService;
+    private final CustomUserDetailsService customUserDetailsServices;
     private final JwtUtils jwtUtils;
 
     /**
@@ -71,7 +70,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests( auth ->
                         auth.requestMatchers("/api/auth/*").permitAll()
                                 .anyRequest().authenticated())
-                .addFilterBefore(new JwtFilter(userDetailsService,jwtUtils), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtFilter(customUserDetailsServices,jwtUtils), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
