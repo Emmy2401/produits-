@@ -26,7 +26,7 @@ public class SecurityConfig {
 
     /**
      * Bean pour l'encodeur de mots de passe.
-     * BCrypt est une méthode de hachage (avec salage) recommandée pour stocker
+     * BCrypt est une méthode de hachage  recommandée pour stocker
      * de manière sécurisée les mots de passe.
      *
      * @return Un PasswordEncoder utilisant l'algorithme BCrypt
