@@ -2,9 +2,11 @@ package com.example.produits.Controller;
 
 import com.example.produits.Config.JwtUtils;
 import com.example.produits.Entity.User;
+import com.example.produits.Filter.JwtFilter;
 import com.example.produits.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
