@@ -114,7 +114,7 @@ public class JwtUtils {
      * @param token Le token JWT
      * @return Le nom d'utilisateur (subject) contenu dans le token
      */
-    private String extractUsername(String token) {
+    public String extractUsername(String token) {
         return extractClaims(token, Claims::getSubject);
     }
 
