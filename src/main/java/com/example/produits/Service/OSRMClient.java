@@ -23,7 +23,7 @@ public class OSRMClient {
      * @param lon2 Longitude du point d'arrivée.
      * @return La distance en mètres entre les deux points.
      */
-    public double getDistance(double lat1, double lon1, double lat2, double lon2) {
+    public double getDistance(Double lat1, Double lon1, Double lat2, Double lon2) {
         // Construction correcte de l'URL avec des points comme séparateurs décimaux
         String url = String.format(
                 Locale.US,

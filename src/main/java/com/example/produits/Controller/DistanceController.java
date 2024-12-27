@@ -20,7 +20,7 @@ public class DistanceController {
      * @return La distance en mètres entre les deux points.
      */
     @PostMapping()
-    public double getDistance(@Valid @RequestBody DistanceRequestDTO request) {
+    public double getDistance(@RequestBody @Valid DistanceRequestDTO request) {
         return osrmClient.getDistance(
                 request.getLatitudeFrom(),
                 request.getLongitudeFrom(),

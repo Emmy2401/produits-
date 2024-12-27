@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -66,16 +68,17 @@ public class DistanceControllerIntegrationTest {
     @Test
     void testGetDistanceInvalidRequest() throws Exception {
         // Requête incomplète ou mal formée
-        String invalidRequestJson = "{"
-                + "\"longitudeFrom\":2.3522,"
-                + "\"latitudeTo\":41.9028,"
-                + "}";
+        DistanceRequestDTO invalidRequestDTO = new DistanceRequestDTO();
+        invalidRequestDTO.setLatitudeFrom(41.9028);   // Paris
+        invalidRequestDTO.setLongitudeFrom(2.3522);
 
         // On exécute la requête POST /api/distance
         mockMvc.perform(post("/api/distance")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(invalidRequestJson)) // On envoie une requête mal formée
-                .andExpect(status().isInternalServerError()); // On s'attend à un 500 Bainternal servor error
+                        .content(objectMapper.writeValueAsString(invalidRequestDTO))) // On envoie une requête mal formée
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isInternalServerError()); // On s'attend à un 500
+               // .andExpect(status().isInternalServerError()); // On s'attend à un 400
     }
 
 }

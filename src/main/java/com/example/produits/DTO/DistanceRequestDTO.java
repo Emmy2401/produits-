@@ -5,44 +5,44 @@ import jakarta.validation.constraints.NotNull;
 // Classe DTO pour recevoir les coordonnées des points de départ et d'arrivée
 public class DistanceRequestDTO {
     @NotNull(message = "LatitudeFrom est obligatoire")
-    private double latitudeFrom;
+    private Double latitudeFrom;
     @NotNull(message = "longitudeFrom est obligatoire")
-    private double longitudeFrom;
+    private Double longitudeFrom;
     @NotNull(message = "LatitudeTo est obligatoire")
-    private double latitudeTo;
+    private Double latitudeTo;
     @NotNull(message = "LongitudeTo est obligatoire")
-    private double longitudeTo;
+    private Double longitudeTo;
 
     // Getters et Setters
-    public double getLatitudeFrom() {
+    public Double getLatitudeFrom() {
         return latitudeFrom;
     }
 
-    public void setLatitudeFrom(double latitudeFrom) {
+    public void setLatitudeFrom(Double latitudeFrom) {
         this.latitudeFrom = latitudeFrom;
     }
 
-    public double getLongitudeFrom() {
+    public Double getLongitudeFrom() {
         return longitudeFrom;
     }
 
-    public void setLongitudeFrom(double longitudeFrom) {
+    public void setLongitudeFrom(Double longitudeFrom) {
         this.longitudeFrom = longitudeFrom;
     }
 
-    public double getLatitudeTo() {
+    public Double getLatitudeTo() {
         return latitudeTo;
     }
 
-    public void setLatitudeTo(double latitudeTo) {
+    public void setLatitudeTo(Double latitudeTo) {
         this.latitudeTo = latitudeTo;
     }
 
-    public double getLongitudeTo() {
+    public Double getLongitudeTo() {
         return longitudeTo;
     }
 
-    public void setLongitudeTo(double longitudeTo) {
+    public void setLongitudeTo(Double longitudeTo) {
         this.longitudeTo = longitudeTo;
     }
 }
