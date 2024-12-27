@@ -3,6 +3,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
+import java.util.Locale;
 
 // Service pour interagir avec l'API OSRM (Open Source Routing Machine)
 @Service
@@ -23,22 +24,24 @@ public class OSRMClient {
      * @return La distance en mètres entre les deux points.
      */
     public double getDistance(double lat1, double lon1, double lat2, double lon2) {
-        // Construction de l'URL pour appeler l'API OSRM
+        // Construction correcte de l'URL avec des points comme séparateurs décimaux
         String url = String.format(
+                Locale.US,
                 "/route/v1/driving/%f,%f;%f,%f?overview=false",
                 lon1, lat1, lon2, lat2
         );
 
-        // Appel de l'API via WebClient
+        // Appel de l'API OSRM
         return webClient.get()
-                .uri(url) // URL relative construite précédemment
-                .retrieve() // Envoie la requête HTTP
-                .bodyToMono(OSRMResponse.class) // Conversion de la réponse JSON en objet Java
-                .block() // Récupère le résultat de manière synchrone
+                .uri(url)
+                .retrieve()
+                .bodyToMono(OSRMResponse.class)
+                .block()
                 .getRoutes()
                 .get(0)
-                .getDistance(); // Extrait la distance de la première route dans la réponse
+                .getDistance();
     }
+
 
     // Classe interne pour modéliser la réponse JSON de l'API OSRM
     static class OSRMResponse {
