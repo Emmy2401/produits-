@@ -3,6 +3,7 @@ package com.example.produits.Controller;
 
 import com.example.produits.DTO.DistanceRequestDTO;
 import com.example.produits.Service.OSRMClient;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 // Contrôleur REST pour gérer les requêtes liées aux distances
@@ -19,7 +20,7 @@ public class DistanceController {
      * @return La distance en mètres entre les deux points.
      */
     @PostMapping()
-    public double getDistance(@RequestBody DistanceRequestDTO request) {
+    public double getDistance(@Valid @RequestBody DistanceRequestDTO request) {
         return osrmClient.getDistance(
                 request.getLatitudeFrom(),
                 request.getLongitudeFrom(),
